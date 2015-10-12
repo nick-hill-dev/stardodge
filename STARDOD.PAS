@@ -81,7 +81,7 @@ begin
   MoveTo(260,20); OutText('StarDodge');
   SetTextStyle(DefaultFont, VertDir, 1);
   SetColor(11);
-  MoveTo(10,0); OutText('(c) 1999 Nicholas Hill. Contact connivex@callnetuk.com');
+  MoveTo(10,0); OutText('(c) 1999-2015 Nicholas Hill. Contact nick@nick-hill.com');
   SetColor(15);
   SetTextStyle(SansSerifFont, HorizDir, 4);
   Str(Life div 10,I2S); OutTextXY(100,250,'Life left: '+I2S+'%');

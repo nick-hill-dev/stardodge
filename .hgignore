@@ -1,0 +1,5 @@
+syntax: glob
+S-Push.bat
+S-Commit.bat
+S-Update.bat
+S-Generate.bat

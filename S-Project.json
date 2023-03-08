@@ -1,0 +1,11 @@
+{
+  "name": "Stardodge",
+  "repositoryReferences": [
+    {
+      "path": "ThirdParty/DOSBox"
+    },
+    {
+      "path": "ThirdParty/Turbo Pascal"
+    }
+  ]
+}

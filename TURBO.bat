@@ -1,3 +1,3 @@
-set turbo=%~dp0..\..\..\Third Party\Turbo Pascal
-set path=%path%;%~dp0..\..\..\Third Party\DOSBox;%turbo%
+set turbo=%~dp0..\..\..\ThirdParty\TurboPascal
+set path=%path%;%~dp0..\..\..\ThirdParty\DOSBox;%turbo%
 start DOSBox -noconsole

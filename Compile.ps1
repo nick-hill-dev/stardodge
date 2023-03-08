@@ -1,10 +1,10 @@
 $ErrorActionPreference = "Stop"
 
 If (Test-Path "bin") {
-    Remove-Item "bin" -Recurse
+    Remove-Item "bin" -Recurse -ErrorAction Inquire
 }
 
-New-Item bin -ItemType Directory | Out-Null
+New-Item bin -ItemType Directory  -ErrorAction SilentlyContinue | Out-Null
 
 Start-Process "..\..\..\ThirdParty\DOSBox\DOSBox" -ArgumentList @("-noconsole", "-conf", "build.conf") -Wait
 Move-Item "src/STARDOD.EXE" bin
@@ -13,9 +13,16 @@ Copy-Item "src/*.BGI" bin
 Copy-Item "src/*.CHR" bin
 Copy-Item "src/*.DAT" bin
 
-$zipFileName = "bin/Stardodge.zip"
+New-Item bin/.jsdos -ItemType Directory | Out-Null
+Copy-Item jsdos/dosbox.conf bin/.jsdos
+Copy-Item jsdos/jsdos.json bin/.jsdos
 
-Compress-Archive -Path bin/*.EXE -DestinationPath $zipFileName
-Compress-Archive -Path bin/*.BGI -Update -DestinationPath $zipFileName
-Compress-Archive -Path bin/*.CHR -Update -DestinationPath $zipFileName
-Compress-Archive -Path bin/*.DAT -Update -DestinationPath $zipFileName
+$zipFileName = "$PSScriptRoot\Stardodge.jsdos"
+Push-Location bin
+Try {
+    Compress-Archive * -DestinationPath $zipFileName
+}
+Finally {
+    Pop-Location
+}
+Move-Item "Stardodge.jsdos" bin

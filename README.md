@@ -24,13 +24,25 @@ Use the space bar to toggle between up and down. Get to the end without hitting 
 
 You get bonus points for making fewer turns.
 
-## Manual Building
+## IDE Coding and Debugging
 
-`Compile.ps1` can be used to build the .jsdoc as well as the original `STARDOD.EXE` file.
+`IDE.ps1` can be used to edit the source code and debug it via the Turbo Pascal IDE.
 
-It will need adjusting, as you will have to point to an instance of DOSBox and a folder where TURBO PASCAL (6+) resides.
+When executing the script, specify where DOSBox is and also where Turbo Pascal (6+) is:
 
-As well as adjusting `Compile.ps1` you will also need to update the startup script `build.conf` (at the bottom) to correctly find `TPC.EXE`.
+```powershell
+.\IDE.ps1 -DosBoxExe C:\DOSBox\DOSBox.exe -TurboPascalIdeExe C:\TP\TURBO.exe
+```
+
+## Creating a JSDOS Deployment Package
+
+`BuildPackage.ps1` can be used to build the `.jsdoc` as well as the original `STARDOD.EXE` file.
+
+When executing the script, specify where DOSBox is and also where Turbo Pascal (6+) is:
+
+```powershell
+.\BuildPackage.ps1 -DosBoxExe C:\DOSBox\DOSBox.exe -TurboPascalCompilerExe C:\TP\TPC.exe
+```
 
 ## License
 

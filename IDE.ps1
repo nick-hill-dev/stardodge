@@ -1,6 +1,7 @@
 Param (
     [Parameter()] $DosBoxExe = "..\..\..\ThirdParty\DOSBox\DOSBox.exe",
-    [Parameter()] $TurboPascalIdeExe = "..\..\..\ThirdParty\TurboPascal\TURBO.EXE"
+    [Parameter()] $TurboPascalIdeExe = "..\..\..\ThirdParty\TurboPascal\TURBO.EXE",
+    [Parameter()] $SourceCodeFileName = "STARDOD.PAS"
 )
 
 $ErrorActionPreference = "Stop"
@@ -11,7 +12,7 @@ Start-Process $DosBoxExe -ArgumentList @(
     "-c `"MOUNT D: src`"",
     "-c `"MOUNT E: bin`"",
     "-c D:",
-    "-c `"C:\TURBO STARDOD.PAS`"",
+    "-c `"C:\TURBO $SourceCodeFileName`"",
     "-conf IDE.conf",
     "-noconsole"
 )

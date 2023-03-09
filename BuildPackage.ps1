@@ -1,6 +1,8 @@
 Param (
     [Parameter()] $DosBoxExe = "..\..\..\ThirdParty\DOSBox\DOSBox.exe",
-    [Parameter()] $TurboPascalCompilerExe = "..\..\..\ThirdParty\TurboPascal\TPC.EXE"
+    [Parameter()] $TurboPascalCompilerExe = "..\..\..\ThirdParty\TurboPascal\TPC.EXE",
+    [Parameter()] $SourceCodeFileName = "STARDOD.PAS",
+    [Parameter()] $PackageName = "Stardodge"
 )
 
 $ErrorActionPreference = "Stop"
@@ -20,13 +22,14 @@ Start-Process $DosBoxExe -ArgumentList @(
     "-c `"MOUNT D: src`"",
     "-c `"MOUNT E: bin`"",
     "-c D:",
-    "-c `"C:\TPC STARDOD.PAS`"",
+    "-c `"C:\TPC $SourceCodeFileName`"",
     "-c EXIT",
     "-noconsole"
 ) -Wait
 
+$exe = [IO.Path]::ChangeExtension($SourceCodeFileName, ".EXE")
 Write-Host "Copying files to bin folder..." -ForegroundColor Cyan
-Move-Item "src/STARDOD.EXE" bin
+Move-Item "src/$exe" bin
 Move-Item 'src/*.$$$' bin -ErrorAction SilentlyContinue
 Copy-Item "src/*.BGI" bin
 Copy-Item "src/*.CHR" bin
@@ -38,7 +41,7 @@ Copy-Item jsdos/dosbox.conf bin/.jsdos
 Copy-Item jsdos/jsdos.json bin/.jsdos
 
 Write-Host "Creating archive..." -ForegroundColor Cyan
-$zipFileName = "$PSScriptRoot\Stardodge.jsdos"
+$zipFileName = "$PSScriptRoot\$PackageName.jsdos"
 Push-Location bin
 Try {
     Compress-Archive * -DestinationPath $zipFileName
@@ -46,6 +49,6 @@ Try {
 Finally {
     Pop-Location
 }
-Move-Item "Stardodge.jsdos" bin
+Move-Item "$PackageName.jsdos" bin
 
 Write-Host "All done." -ForegroundColor Green
